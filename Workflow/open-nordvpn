@@ -1,0 +1,24 @@
+#!/usr/bin/env osascript -l JavaScript
+
+ObjC.import('stdlib');
+
+// check whether NordVPN exists, if no then open it
+function run(argv) {
+  const app = Application.currentApplication();
+  app.includeStandardAdditions = true;
+  app.doShellScript('open -g -j -a "NordVPN"');
+
+  const hideWindow = parseInt($.getenv('hide_after_open'));
+
+  // Hide the app after launching
+  if (!!hideWindow) {
+    const delayBeforeHide = $.getenv('delay_before_hide') || 0;
+
+    delay(delayBeforeHide);
+
+    app.doShellScript('osascript -e \'tell application "System Events" to set visible of process "NordVPN" to false\'');
+
+    // put a small delay after hiding to try to fix an issue where alfred not showing up (mostly on first country load)
+    delay(0.5);
+  }
+}

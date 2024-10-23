@@ -1,0 +1,29 @@
+#!/usr/bin/env osascript -l JavaScript
+
+function run() {
+  const systemEvents = Application("System Events");
+  const nordVPN = systemEvents.processes.byName("NordVPN");
+
+  try {
+    nordVPN
+      .windows[0]
+      .toolbars[0]
+      .buttons[0]
+      .buttons
+      .byName("Quick connect")
+      .click();
+
+    return true;
+  } catch (error) {
+    const app = Application.currentApplication();
+    app.includeStandardAdditions = true;
+    app.displayNotification(
+      "Quick connect failed: Unable to find Quick Connect button",
+      {
+        withTitle: "Nord Connect",
+      }
+    );
+
+    return false;
+  }
+}

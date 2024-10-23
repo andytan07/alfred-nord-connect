@@ -1,0 +1,163 @@
+#!/usr/bin/env osascript -l JavaScript
+
+const countryCodeMap = {
+  Albania: "al",
+  Algeria: "dz",
+  Andorra: "ad",
+  Argentina: "ar",
+  Armenia: "am",
+  Australia: "au",
+  Austria: "at",
+  Bangladesh: "bd",
+  Belarus: "by",
+  Belgium: "be",
+  "Bosnia and Herzegovina": "ba",
+  Brazil: "br",
+  Bulgaria: "bg",
+  Canada: "ca",
+  Chile: "cl",
+  "Costa Rica": "cr",
+  Croatia: "hr",
+  Cyprus: "cy",
+  "Czech Republic": "cz",
+  Denmark: "dk",
+  Estonia: "ee",
+  Finland: "fi",
+  France: "fr",
+  Georgia: "ge",
+  Germany: "de",
+  Greece: "gr",
+  "Hong Kong": "hk",
+  Hungary: "hu",
+  Iceland: "is",
+  India: "in",
+  Indonesia: "id",
+  Ireland: "ie",
+  Israel: "il",
+  Italy: "it",
+  Japan: "jp",
+  Kazakhstan: "kz",
+  Latvia: "lv",
+  Lithuania: "lt",
+  Luxembourg: "lu",
+  Malaysia: "my",
+  Mexico: "mx",
+  Moldova: "md",
+  Netherlands: "nl",
+  "New Zealand": "nz",
+  "North Macedonia": "mk",
+  Norway: "no",
+  Pakistan: "pk",
+  Panama: "pa",
+  Poland: "pl",
+  Portugal: "pt",
+  Romania: "ro",
+  Serbia: "rs",
+  Singapore: "sg",
+  Slovakia: "sk",
+  Slovenia: "si",
+  "South Africa": "za",
+  "South Korea": "kr",
+  Spain: "es",
+  "Sri Lanka": "lk",
+  Sweden: "se",
+  Switzerland: "ch",
+  Taiwan: "tw",
+  Thailand: "th",
+  Turkey: "tr",
+  Ukraine: "ua",
+  "United Arab Emirates": "ae",
+  "United Kingdom": "gb",
+  "United States": "us",
+  Vietnam: "vn",
+  Cambodia: "kh",
+  Colombia: "co",
+  Greenland: "gl",
+  "Isle of Man": "im",
+  Jamaica: "jm",
+  Kenya: "ke",
+  Liechtenstein: "li",
+  Malta: "mt",
+  Mauritius: "mu",
+  Mongolia: "mn",
+  Montenegro: "me",
+  Morocco: "ma",
+  Paraguay: "py",
+  Peru: "pe",
+  Philippines: "ph",
+  Tunisia: "tn",
+  Uruguay: "uy",
+  Venezuela: "ve",
+};
+
+function run(argv) {
+  console.log('update file argv: ', argv);
+
+  const filePath = './data/countries.json';
+
+  const nordVPN = Application("System Events").processes.byName("NordVPN");
+  const countryNamesAdded = [];
+  const countries = [];
+
+  const excludedEntries = [
+    "Dedicated IP",
+    "Double VPN",
+    "Onion Over VPN",
+    "P2P",
+  ];
+
+  try {
+    // Check if there is at least one window
+    if (nordVPN.windows.length === 0) {
+      throw new Error("No windows found for NordVPN.");
+    }
+
+    nordVPN.windows[0].splitterGroups[0].scrollAreas[0].tables[0].rows.uiElements.uiElements.staticTexts.name
+      .get()
+      .forEach((arr, idx) => {
+        const countryArr = arr.flat(Infinity);
+
+		if (countryArr.length == 0) {
+          return;
+        }
+
+        const title = countryArr[0];
+        const subtitle = countryArr[1] || "-";
+        const countryCode = countryCodeMap[title];
+
+        if (
+          countryNamesAdded.includes(title) ||
+          excludedEntries.includes(title)
+        ) {
+          return;
+        }
+
+        countries.push({
+          uid: `nord-country-${title}`,
+          type: "default",
+          title: title,
+          subtitle: subtitle,
+          match: title,
+          arg: [title, idx],
+          autocomplete: title,
+          icon: {
+            path: `./images/flags/${countryCode}.png`,
+          },
+        });
+
+        countryNamesAdded.push(title);
+      });
+
+      // save to countries.json for faster load
+      const nsString = $.NSString.alloc.initWithUTF8String(JSON.stringify(countries));
+      nsString.writeToFileAtomicallyEncodingError(filePath, true, $.NSUTF8StringEncoding, null);
+  } catch (error) {
+    const app = Application.currentApplication();
+    app.includeStandardAdditions = true;
+
+    app.displayNotification("An error occurred: " + error.message, {
+      withTitle: "Get countries script Error",
+      subtitle: "Action Failed",
+    });
+  }
+}

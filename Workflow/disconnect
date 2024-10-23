@@ -1,0 +1,30 @@
+#!/usr/bin/env osascript -l JavaScript
+
+function run() {
+  const systemEvents = Application("System Events");
+  const nordVPN = systemEvents.processes.byName("NordVPN");
+
+  try {
+    nordVPN
+      .windows[0]
+      .toolbars[0]
+      .buttons[1]
+      .buttons
+      .byName("Disconnect")
+      .click();
+
+    return true;
+  } catch (error) {
+    // Use StandardAdditions to display a notification
+    const app = Application.currentApplication();
+    app.includeStandardAdditions = true;
+    app.displayNotification(
+      "Disconnect Failed: Unable to find Disconnect button",
+      {
+        withTitle: "Nord Connect",
+      }
+    );
+
+    return false;
+  }
+}

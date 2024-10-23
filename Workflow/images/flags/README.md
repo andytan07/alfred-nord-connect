@@ -1,0 +1,1 @@
+These flags PNG are converted from images in https://github.com/HatScripts/circle-flags.

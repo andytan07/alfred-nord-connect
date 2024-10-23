@@ -1,0 +1,45 @@
+#!/usr/bin/env osascript -l JavaScript
+
+function run(argv) {
+  const countryListStr = getCountriesFromFile();
+
+  if (countryListStr) {
+    return countryListStr;
+  }
+
+  const app = Application.currentApplication();
+  app.includeStandardAdditions = true;
+
+  const scriptPath = "./update-countries-file";
+  app.doShellScript(scriptPath);
+
+  return getCountriesFromFile();
+}
+
+function getCountriesFromFile() {
+  const filePath = './data/countries.json';
+
+  // try to read from saved data first
+  const fileContent = $.NSString.stringWithContentsOfFileEncodingError(filePath, $.NSUTF8StringEncoding, null);
+  const jsonString = ObjC.unwrap(fileContent);
+
+  if (!jsonString) {
+    return '';
+  }
+
+  const parsedJson = JSON.parse(jsonString);
+
+  if (!parsedJson || !parsedJson.length) {
+    return '';
+  }
+
+  return generateAlfredFilterData(parsedJson);
+}
+
+function generateAlfredFilterData(countriesArray) {
+  return JSON.stringify({
+    // cache: { seconds: 180 },
+    // skipknowledge: true,
+    items: countriesArray,
+  });
+}

@@ -1,0 +1,42 @@
+#!/usr/bin/env osascript -l JavaScript
+
+function run(argv) {
+  const country = argv[0];
+  const idx = argv[1];
+
+  const systemEvents = Application("System Events");
+  const nordVPN = systemEvents.processes["NordVPN"];
+
+  try {
+    // Check if there is at least one window
+    if (nordVPN.windows.length === 0) {
+      throw new Error("No windows found for NordVPN.");
+    }
+
+    // click on the country to connect
+    nordVPN
+      .windows[0]
+      .splitterGroups[0]
+      .scrollAreas[0]
+      .tables[0]
+      .rows[idx]
+      .uiElements[0]
+      .uiElements[0]
+      .buttons[0]
+      .click();
+
+    return country;
+  } catch (error) {
+    const app = Application.currentApplication();
+    app.includeStandardAdditions = true;
+
+    app.displayNotification(
+      "Connect failed: " + error.message, 
+      {
+        withTitle: "Nord Connect",
+      }
+    );
+
+    return false;
+  }
+}

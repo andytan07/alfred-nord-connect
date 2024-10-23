@@ -1,0 +1,10 @@
+# data folder
+Workflow/data/*
+
+# personal symlink to Alfred workflow
+workflow-ln
+
+# miscellaneous
+prefs.plist
+.vscode/*
+.DS_Store

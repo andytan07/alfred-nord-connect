@@ -1,0 +1,21 @@
+#!/usr/bin/env osascript -l JavaScript
+
+function run() {
+  const app = Application.currentApplication();
+  app.includeStandardAdditions = true;
+
+  // Run the AppleScript inside doShellScript
+  const shellScriptOutput = app.doShellScript(`
+    osascript -l JavaScript -e '
+      Application("System Events")
+        .processes["NordVPN"]
+        .windows[0]
+        .entireContents()
+    '
+  `);
+
+  return JSON.stringify({
+    "response": shellScriptOutput,
+    "footer": "All UI elements of NordVPN",
+  });
+}

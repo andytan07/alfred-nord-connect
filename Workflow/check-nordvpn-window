@@ -1,0 +1,9 @@
+#!/usr/bin/env osascript -l JavaScript
+
+// check whether NordVPN exists, return false if not exists, else true
+function run(argv) {
+  const systemEvents = Application('System Events');
+  const nordVPN = systemEvents.processes.byName('NordVPN');
+
+  return !(!nordVPN.exists() || nordVPN.windows.length === 0);
+}
