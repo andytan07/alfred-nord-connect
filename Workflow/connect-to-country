@@ -2,41 +2,75 @@
 
 function run(argv) {
   const country = argv[0];
-  const idx = argv[1];
-
+  let countryIndex = parseInt(argv[1]); // Now this is 0-based index within Countries section
   const systemEvents = Application("System Events");
   const nordVPN = systemEvents.processes["NordVPN"];
-
+  
   try {
-    // Check if there is at least one window
     if (nordVPN.windows.length === 0) {
       throw new Error("No windows found for NordVPN.");
     }
 
-    // click on the country to connect
-    nordVPN
-      .windows[0]
-      .splitterGroups[0]
-      .scrollAreas[0]
-      .tables[0]
-      .rows[idx]
-      .uiElements[0]
-      .uiElements[0]
-      .buttons[0]
-      .click();
+    const table = nordVPN.windows[0].splitterGroups[0].scrollAreas[0].tables[0];
+    const rows = table.rows;
 
-    return country;
+    // Find Countries section
+    // Index 15 might need to change if NordVPN decided to add more sections before Countries
+    let countriesSectionIndex = -1;
+    for (let i = 0; i < 15; i++) {
+      const rowText = rows[i].uiElements[0].staticTexts.name().toString().trim();
+      if (rowText === "Countries") {
+        countriesSectionIndex = i + 1; // +1 to skip the "Countries" header
+        break;
+      }
+    }
+
+    if (countriesSectionIndex === -1) {
+      throw new Error("Countries section not found");
+    }
+
+    // Calculate actual index by adding the offset to reach Countries section
+    const targetIndex = countriesSectionIndex + countryIndex;
+
+    // Try exact index
+    try {
+      const row = rows[targetIndex].uiElements[0].uiElements[0];
+      const actualCountry = row.staticTexts[0].name();
+
+      if (actualCountry !== country) {
+        throw new Error(`Wrong country found: ${actualCountry}.`);
+      }
+
+      row.buttons[0].click();
+      return country;
+    } catch(e) {
+      // If exact index fails, try ±1 position
+      for (let offset of [-1, 1]) {
+        try {
+          const newIndex = targetIndex + offset;
+          const row = rows[newIndex].uiElements[0].uiElements[0];
+          const actualCountry = row.staticTexts[0].name();
+
+          if (actualCountry === country) {
+            row.buttons[0].click();
+            return country;
+          }
+        } catch(e) {
+          continue;
+        }
+      }
+    }
+
+    throw new Error(`Could not find button for country: ${country}`);
   } catch (error) {
     const app = Application.currentApplication();
     app.includeStandardAdditions = true;
-
     app.displayNotification(
       "Connect failed: " + error.message, 
       {
         withTitle: "Nord Connect",
       }
     );
-
     return false;
   }
 }

@@ -91,45 +91,60 @@ const countryCodeMap = {
 };
 
 function run(argv) {
-  console.log('update file argv: ', argv);
-
   const filePath = './data/countries.json';
-
   const nordVPN = Application("System Events").processes.byName("NordVPN");
   const countryNamesAdded = [];
   const countries = [];
-
   const excludedEntries = [
     "Dedicated IP",
     "Double VPN",
     "Onion Over VPN",
     "P2P",
+    "Recents",
+    "Presets",
+    "Countries",
+    "Specialty Servers"
   ];
-
   try {
-    // Check if there is at least one window
     if (nordVPN.windows.length === 0) {
       throw new Error("No windows found for NordVPN.");
     }
 
-    nordVPN.windows[0].splitterGroups[0].scrollAreas[0].tables[0].rows.uiElements.uiElements.staticTexts.name
-      .get()
-      .forEach((arr, idx) => {
-        const countryArr = arr.flat(Infinity);
+    const rows = nordVPN.windows[0].splitterGroups[0].scrollAreas[0].tables[0].rows;
 
-		if (countryArr.length == 0) {
-          return;
-        }
+    // Find the index where "Countries" section starts
+    let countriesSectionIndex = -1;
+    for (let i = 0; i < rows.length; i++) {
+      const rowText = rows[i].uiElements[0].staticTexts.name.get();
+      if (rowText == "Countries") {
+        countriesSectionIndex = i + 1;
+        break;
+      }
+    }
+
+    // If Countries section is found, process only countries after it
+    if (countriesSectionIndex !== -1) {
+      let countryIndex = 0; // New counter just for countries
+
+      for (let i = countriesSectionIndex; i < rows.length; i++) {
+        const rowElements = rows[i].uiElements.uiElements.staticTexts.name.get();
+        if (rowElements.length === 0) continue;
+
+        const countryArr = rowElements.flat(Infinity);
+        if (countryArr.length === 0) continue;
 
         const title = countryArr[0];
         const subtitle = countryArr[1] || "-";
         const countryCode = countryCodeMap[title];
 
-        if (
-          countryNamesAdded.includes(title) ||
-          excludedEntries.includes(title)
-        ) {
-          return;
+        // Skip if it's a section header or already added
+        if (excludedEntries.includes(title) || countryNamesAdded.includes(title)) {
+          continue;
+        }
+
+        // Stop when we hit "Specialty Servers" section
+        if (title === "Specialty Servers") {
+          break;
         }
 
         countries.push({
@@ -138,23 +153,25 @@ function run(argv) {
           title: title,
           subtitle: subtitle,
           match: title,
-          arg: [title, idx],
+          arg: [title, countryIndex], // Use countryIndex instead of i
           autocomplete: title,
           icon: {
             path: `./images/flags/${countryCode}.png`,
           },
         });
-
         countryNamesAdded.push(title);
-      });
+        countryIndex++; // Increment only when we add a country
+      }
 
       // save to countries.json for faster load
       const nsString = $.NSString.alloc.initWithUTF8String(JSON.stringify(countries));
       nsString.writeToFileAtomicallyEncodingError(filePath, true, $.NSUTF8StringEncoding, null);
+    } else {
+      throw new Error("Countries section not found");
+    }
   } catch (error) {
     const app = Application.currentApplication();
     app.includeStandardAdditions = true;
-
     app.displayNotification("An error occurred: " + error.message, {
       withTitle: "Get countries script Error",
       subtitle: "Action Failed",

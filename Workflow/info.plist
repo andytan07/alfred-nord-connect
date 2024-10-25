@@ -9,18 +9,7 @@
 	<key>connections</key>
 	<dict>
 		<key>00F72511-E525-43A4-84CE-0EF1891C294F</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>77A9180D-8F73-418B-90BF-96FBD9AECF4A</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>243BF9CE-BAE2-416A-8197-C1D0167FFA16</key>
 		<array>
 			<dict>
@@ -86,18 +75,7 @@
 			</dict>
 		</array>
 		<key>29465701-8116-44ED-8A88-41E77C083868</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>77A9180D-8F73-418B-90BF-96FBD9AECF4A</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>3BF49806-E3B4-4FC9-8A72-52E1EBD0499D</key>
 		<array>
 			<dict>
@@ -231,19 +209,6 @@
 				<false/>
 			</dict>
 		</array>
-		<key>77A9180D-8F73-418B-90BF-96FBD9AECF4A</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>9D304529-3C2B-4572-A670-8C3A1FFF5648</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
 		<key>810623DD-04A6-4F43-9DB8-CC51A61B6ADB</key>
 		<array>
 			<dict>
@@ -284,18 +249,7 @@
 			</dict>
 		</array>
 		<key>9D304529-3C2B-4572-A670-8C3A1FFF5648</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>BC67A98D-EF87-404A-9BFF-6FC4A15ABB25</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
+		<array/>
 		<key>A5CC72C2-5535-4E5D-9321-FB9CE24BF254</key>
 		<array>
 			<dict>
@@ -331,21 +285,6 @@
 				<integer>0</integer>
 				<key>modifiersubtext</key>
 				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
-		</array>
-		<key>BC67A98D-EF87-404A-9BFF-6FC4A15ABB25</key>
-		<array>
-			<dict>
-				<key>destinationuid</key>
-				<string>C01A9978-0BD2-4525-A539-3284AEDEDDF7</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>sourceoutputuid</key>
-				<string>5C7EE872-0764-4434-9D74-81D0D9432299</string>
 				<key>vitoclose</key>
 				<false/>
 			</dict>
@@ -497,6 +436,29 @@
 		<dict>
 			<key>config</key>
 			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>./update-countries-file</string>
+				<key>type</key>
+				<integer>8</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>9D304529-3C2B-4572-A670-8C3A1FFF5648</string>
+			<key>version</key>
+			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
 				<key>lastpathcomponent</key>
 				<false/>
 				<key>onlyshowifquerypopulated</key>
@@ -593,50 +555,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>script</key>
-				<string></string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string>./update-countries-file</string>
-				<key>type</key>
-				<integer>8</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>9D304529-3C2B-4572-A670-8C3A1FFF5648</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>Refreshed country list</string>
-				<key>title</key>
-				<string>Nord Connect</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>C01A9978-0BD2-4525-A539-3284AEDEDDF7</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>button1</key>
 				<string>Yes</string>
 				<key>button2</key>
@@ -704,51 +622,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>conditions</key>
-				<array>
-					<dict>
-						<key>inputstring</key>
-						<string>{var:show_refresh_country_noti}</string>
-						<key>matchcasesensitive</key>
-						<false/>
-						<key>matchmode</key>
-						<integer>5</integer>
-						<key>matchstring</key>
-						<string></string>
-						<key>outputlabel</key>
-						<string>Show noti</string>
-						<key>uid</key>
-						<string>5C7EE872-0764-4434-9D74-81D0D9432299</string>
-					</dict>
-				</array>
-				<key>elselabel</key>
-				<string>else</string>
-				<key>hideelse</key>
-				<true/>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.conditional</string>
-			<key>uid</key>
-			<string>BC67A98D-EF87-404A-9BFF-6FC4A15ABB25</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>seconds</key>
-				<string>{var:refresh_country_list_delay}</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.utility.delay</string>
-			<key>uid</key>
-			<string>77A9180D-8F73-418B-90BF-96FBD9AECF4A</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>argumenttype</key>
 				<integer>1</integer>
 				<key>keyword</key>
@@ -786,6 +659,29 @@
 			<string>5F198940-126D-48FE-BF76-04A3CE925071</string>
 			<key>version</key>
 			<integer>1</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>concurrently</key>
+				<false/>
+				<key>escaping</key>
+				<integer>0</integer>
+				<key>script</key>
+				<string></string>
+				<key>scriptargtype</key>
+				<integer>1</integer>
+				<key>scriptfile</key>
+				<string>./connect-to-country</string>
+				<key>type</key>
+				<integer>8</integer>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.action.script</string>
+			<key>uid</key>
+			<string>CF7BC7A1-0E55-40A9-92DE-CB180389AF42</string>
+			<key>version</key>
+			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -833,29 +729,6 @@
 			<string>A66585A3-88B5-4DED-8B98-02C839D79818</string>
 			<key>version</key>
 			<integer>3</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>0</integer>
-				<key>script</key>
-				<string></string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string>./connect-to-country</string>
-				<key>type</key>
-				<integer>8</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>CF7BC7A1-0E55-40A9-92DE-CB180389AF42</string>
-			<key>version</key>
-			<integer>2</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1076,27 +949,6 @@
 		<dict>
 			<key>config</key>
 			<dict>
-				<key>lastpathcomponent</key>
-				<false/>
-				<key>onlyshowifquerypopulated</key>
-				<false/>
-				<key>removeextension</key>
-				<false/>
-				<key>text</key>
-				<string>Disconnected</string>
-				<key>title</key>
-				<string>Nord Connect</string>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.output.notification</string>
-			<key>uid</key>
-			<string>D3172E36-C0AB-4BA9-A3CC-F9C6CC9CE438</string>
-			<key>version</key>
-			<integer>1</integer>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
 				<key>concurrently</key>
 				<false/>
 				<key>escaping</key>
@@ -1116,6 +968,27 @@
 			<string>FC2698B7-5CB8-4592-9994-CB483EE81AE0</string>
 			<key>version</key>
 			<integer>2</integer>
+		</dict>
+		<dict>
+			<key>config</key>
+			<dict>
+				<key>lastpathcomponent</key>
+				<false/>
+				<key>onlyshowifquerypopulated</key>
+				<false/>
+				<key>removeextension</key>
+				<false/>
+				<key>text</key>
+				<string>Disconnected</string>
+				<key>title</key>
+				<string>Nord Connect</string>
+			</dict>
+			<key>type</key>
+			<string>alfred.workflow.output.notification</string>
+			<key>uid</key>
+			<string>D3172E36-C0AB-4BA9-A3CC-F9C6CC9CE438</string>
+			<key>version</key>
+			<integer>1</integer>
 		</dict>
 		<dict>
 			<key>config</key>
@@ -1337,17 +1210,6 @@
 			<key>ypos</key>
 			<real>255</real>
 		</dict>
-		<key>77A9180D-8F73-418B-90BF-96FBD9AECF4A</key>
-		<dict>
-			<key>colorindex</key>
-			<integer>12</integer>
-			<key>note</key>
-			<string>Delay for NordVPN to finish connect. Can set to a longer period if your NordVPN takes longer time to connect</string>
-			<key>xpos</key>
-			<real>3995</real>
-			<key>ypos</key>
-			<real>500</real>
-		</dict>
 		<key>810623DD-04A6-4F43-9DB8-CC51A61B6ADB</key>
 		<dict>
 			<key>xpos</key>
@@ -1389,9 +1251,9 @@
 			<key>note</key>
 			<string>Refresh country list to reset index since Recents list will update</string>
 			<key>xpos</key>
-			<real>4225</real>
+			<real>4375</real>
 			<key>ypos</key>
-			<real>470</real>
+			<real>310</real>
 		</dict>
 		<key>A5CC72C2-5535-4E5D-9321-FB9CE24BF254</key>
 		<dict>
@@ -1421,20 +1283,6 @@
 			<real>105</real>
 			<key>ypos</key>
 			<real>240</real>
-		</dict>
-		<key>BC67A98D-EF87-404A-9BFF-6FC4A15ABB25</key>
-		<dict>
-			<key>xpos</key>
-			<real>4455</real>
-			<key>ypos</key>
-			<real>500</real>
-		</dict>
-		<key>C01A9978-0BD2-4525-A539-3284AEDEDDF7</key>
-		<dict>
-			<key>xpos</key>
-			<real>4615</real>
-			<key>ypos</key>
-			<real>470</real>
 		</dict>
 		<key>C7376868-8995-455F-9E6E-C278A99B6B8F</key>
 		<dict>
@@ -1597,46 +1445,6 @@
 			<string>textfield</string>
 			<key>variable</key>
 			<string>delay_before_hide</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>default</key>
-				<false/>
-				<key>required</key>
-				<false/>
-				<key>text</key>
-				<string></string>
-			</dict>
-			<key>description</key>
-			<string>Show notification of country list refreshed after connecting</string>
-			<key>label</key>
-			<string>Refresh Country List Notification</string>
-			<key>type</key>
-			<string>checkbox</string>
-			<key>variable</key>
-			<string>show_refresh_country_noti</string>
-		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>default</key>
-				<string>10</string>
-				<key>placeholder</key>
-				<string></string>
-				<key>required</key>
-				<true/>
-				<key>trim</key>
-				<true/>
-			</dict>
-			<key>description</key>
-			<string>Set the wait time (in seconds) before triggering a country list refresh. This duration should be based on how long your VPN take to connect successfully</string>
-			<key>label</key>
-			<string>Refresh Country List Delay</string>
-			<key>type</key>
-			<string>textfield</string>
-			<key>variable</key>
-			<string>refresh_country_list_delay</string>
 		</dict>
 	</array>
 	<key>version</key>
